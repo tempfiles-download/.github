@@ -4,10 +4,9 @@
 
 ## Why?
 
-I, [@Carlgo11](https://github.com/Carlgo11/), have for a long time been very interested in information security and encryption and as a result I set up a site called [UploadMe](https://github.com/Carlgo11/UploadMe) back in 2014.
-
-The main goal of the site was to help people securely share files with their friends without any spying eyes seeing the information.  
-The concept was to store the files with the same level of safety regardless of whether it was cat pictures or state secrets.
+I, [@Carlgo11](https://github.com/Carlgo11/), created a site called [UploadMe](https://github.com/Carlgo11/UploadMe) back in 2014.  
+The goal of the site was to help people securely share files with their friends without any spying eyes seeing the information.  
+The main principle was to store the files with the same level of safety regardless of whether it was cat pictures or state secrets.
 
 Due to the lack of resources I had to stop hosting UploadMe.  
 TempFiles is a remastered version of UploadMe with updated encryption methods, improved storage mechanisms and better resource management resulting in a lower hosting bill.
@@ -19,14 +18,14 @@ TempFiles is a remastered version of UploadMe with updated encryption methods, i
 <details>
 <summary>Frontend</summary>
 
-[__Frontend__]() is responsible for the website [tempfiles.download](https://tempfiles.download). It's a static website sending form data to the backend server.  
+[__Frontend__](https://github.com/tempfiles-download/Frontend) is responsible for the website [tempfiles.download](https://tempfiles.download). It's a static website sending form data to the backend server.  
 The frontend project is meant to be hosted by a CDN like GitHub Pages as it provides the most transparency with the least operating cost.
 </details>
 
 <details>
 <summary>Backend</summary>
 
-[__Backend__]() is responsible for the encryption/decryption and storage of files. It's built using PHP and meant to be hosted on a read-only Linux file system.  
+[__Backend__](https://github.com/tempfiles-download/Backend) is responsible for the encryption/decryption and storage of files. It's built using PHP and meant to be hosted on a read-only Linux file system.  
 On [api.tempfiles.download](https://api.tempfiles.download) only the directory `/tmp` which stores the uploaded files is writable (as a [tmpfs](https://en.wikipedia.org/wiki/Tmpfs)).
 </details>
 
@@ -35,8 +34,8 @@ On [api.tempfiles.download](https://api.tempfiles.download) only the directory `
 <details>
 <summary>Uploads</summary>
 
-1. A user uploads a file through [tempfiles.download]() or any other file-uploading client supporting TempFiles.
-1. The file is sent via TLS 1.3 to the TempFiles [backend](#Backend) server(s).
+1. A user uploads a file through [tempfiles.download](https://tempfiles.download) or any other file-uploading client supporting TempFiles.
+1. The file is sent via TLS 1.3 to the TempFiles [backend](https://github.com/tempfiles-download/Backend) server(s).
 1. The received file is allocated a unique ID (UUID) starting with the letter `D` along with a random deletion password.
 1. The file is encrypted using `AES-256-GCM` and stored in a JSON-file on the server. The time of the upload is also recorded in the file.
     The stored file looks like this:
@@ -84,7 +83,7 @@ On [api.tempfiles.download](https://api.tempfiles.download) only the directory `
 
 ### API
 
-A list of available API calls to the [Backend](#backend) service can be found on [Postman](https://documenter.getpostman.com/view/TzK2bEsi).
+A list of available API calls to the [Backend](https://github.com/tempfiles-download/Backend) service can be found on [Postman](https://documenter.getpostman.com/view/TzK2bEsi).
 
 ## FAQ
 
@@ -102,12 +101,10 @@ A list of available API calls to the [Backend](#backend) service can be found on
 * If you don't trust my storage server I recommend you host your own.
 </details>
 
-
 <details>
 <summary>Why not use client-side encryption?</summary>
 
 * It is possible to encrypt a file in the client browser using JavaScript but that would require everyone to use a web browser to upload files. TempFiles is designed to be compatible with common file-uploading clients like ShareX and cURL.
-
 * If you require client-side encryption I recommend you encrypt the file yourself before uploading it.
 </details>
 
@@ -123,5 +120,13 @@ Eliminating the bottlenecks of database operations means much larger files can b
 
 * There's no set maximum file size but due to the RAM required to encrypt uploaded files there's a practical limit where the server RAM runs out and requests are dropped.
 * For [tempfiles.download](https://tempfiles.download) the limit is around __500MiB__.
-* If you intend on hosting your own TempFiles [Backend](#Backend) you should expect the RAM usage to be close to 1:1 with the file size if you store files using the Linux file system and 3:1 for MySQL storage.
+* If you intend on hosting your own TempFiles [Backend](https://github.com/tempfiles-download/Backend) you should expect the RAM usage to be close to 1:1 with the file size if you store files using the Linux file system and 3:1 for MySQL storage.
+</details>
+
+<details>
+<summary>Do you make money on this?</summary>
+
+__No__. This is a hobby project of mine and for the moment requires very little resources to run.  
+As such I'm able to provide this service for free without any ads or other compromises to user privacy.  
+I do however accept [donations](https://github.com/sponsors/Carlgo11) through GitHub which are much appreciated! :heart:
 </details>
